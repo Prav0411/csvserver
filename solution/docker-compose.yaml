@@ -1,0 +1,24 @@
+version: '1'
+services:
+  csv-generator:
+    image: infracloudio/csvserver:latest  # Replace with the name and tag of your base image
+    environment:
+      - CSVSERVER_BORDER=Orange  # Replace with your desired environment variable and value
+    ports:
+      - "0.0.0.0:9393:9300"  # Map host port 8080 to container port 80
+    volumes:
+      - ./inputdata:/csvserver/inputdata  # Map a volume for the output file
+    networks:
+      - my-network
+
+  Prometheus:
+    image: prom/prometheus:v2.22.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
