@@ -22,3 +22,10 @@ services:
 networks:
   my-network:
     driver: bridge
+------------------------------------------
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+    static_configs:
+      - targets: ['localhost:9393']
